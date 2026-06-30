@@ -1,0 +1,20 @@
+<div class="card" [class.out-of-stock-card]="!game.available">
+  <div class="card-header">
+    <h3>{{ game.title }}</h3>
+    <span class="price">${{ game.price | number:'1.2-2' }}</span>
+  </div>
+  
+  <!-- Apply custom pipe to format key string -->
+  <div class="demo-key-box">
+    <span class="key-label">Demo Key:</span>
+    <code>{{ mockKey | keyFormat }}</code>
+  </div>
+  
+  <div class="card-footer">
+    <span *ngIf="game.available" class="status available">In Stock</span>
+    <span *ngIf="!game.available" class="status out-of-stock">Out of Stock</span>
+    
+    <!-- Trigger output event on click -->
+    <button (click)="onRemoveClick()" class="btn-remove">Remove</button>
+  </div>
+</div>

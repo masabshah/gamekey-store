@@ -1,0 +1,30 @@
+<div class="detail-container">
+  @if (game()) {
+    <h2>🎮 Game Details: {{ game()!.title }}</h2>
+    <div class="detail-card">
+      <div class="detail-row">
+        <span class="label">Database ID</span>
+        <span class="value id-value">#{{ game()!.id }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Product Name</span>
+        <span class="value title-value">{{ game()!.title }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Activation Price</span>
+        <span class="value price-value">${{ game()!.price | number:'1.2-2' }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Vault Status</span>
+        <span class="status" [class.available]="game()!.available" [class.out-of-stock]="!game()!.available">
+          {{ game()!.available ? 'In Stock' : 'Out of Stock' }}
+        </span>
+      </div>
+    </div>
+  } @else {
+    <p class="error-msg">Game not found in local catalog.</p>
+  }
+  
+  <!-- routerLink handles navigation back to the catalog without reloading -->
+  <a routerLink="/games" class="btn-back">← Back to Catalog</a>
+</div>

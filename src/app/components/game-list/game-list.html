@@ -1,0 +1,30 @@
+<div class="inventory-container">
+  <h2>🎮 Game Inventory Management</h2>
+
+  <!-- Add Game Input Form Section -->
+  <div class="form-group">
+    <div class="input-wrapper">
+      <input type="text" [(ngModel)]="newGameTitle" placeholder="Enter game title" class="input-box" />
+    </div>
+    <div class="input-wrapper price-wrapper">
+      <input type="number" [(ngModel)]="newGamePrice" placeholder="Price" class="input-box price-box" />
+    </div>
+    <!-- (click) event binding calls the addGame() component class method -->
+    <button (click)="addGame()" class="btn-add">Add Game</button>
+  </div>
+
+  <!-- Conditional rendering with @if. If games list is empty, show alert -->
+  @if (games().length === 0) {
+    <p class="empty-msg">No games in inventory.</p>
+  } @else {
+    <div class="game-cards-container">
+      <!-- Loop over games and render child cards -->
+      @for (game of games(); track game.id) {
+        <app-game-card 
+          [game]="game" 
+          (remove)="onRemoveGame($event)">
+        </app-game-card>
+      }
+    </div>
+  }
+</div>
