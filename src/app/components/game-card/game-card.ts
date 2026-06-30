@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Game } from '../../services/game';
 import { KeyFormatPipe } from '../../pipes/key-format.pipe'; // Import custom pipe
+import { CartService } from '../../services/cart.service'; // Import CartService
 
 @Component({
   selector: 'app-game-card',
@@ -11,6 +12,8 @@ import { KeyFormatPipe } from '../../pipes/key-format.pipe'; // Import custom pi
   styleUrl: './game-card.css'
 })
 export class GameCardComponent {
+  private cartService = inject(CartService); // Inject CartService
+  
   // 1. @Input decorator allows parent component to pass down Game data
   @Input() game!: Game;
   
@@ -25,4 +28,9 @@ export class GameCardComponent {
   onRemoveClick(): void {
     this.remove.emit(this.game.id);
   }
+
+  onAddToCartClick(): void {
+    this.cartService.addToCart(this.game);
+  }
 }
+

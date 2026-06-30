@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameCardComponent } from './game-card';
 import { Game } from '../../services/game';
+import { CartService } from '../../services/cart.service';
 
 describe('GameCardComponent', () => {
   let component: GameCardComponent;
@@ -13,9 +14,16 @@ describe('GameCardComponent', () => {
     available: true
   };
 
+  const mockCartService = {
+    addToCart: () => {}
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GameCardComponent]
+      imports: [GameCardComponent],
+      providers: [
+        { provide: CartService, useValue: mockCartService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(GameCardComponent);

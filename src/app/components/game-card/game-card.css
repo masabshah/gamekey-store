@@ -112,3 +112,36 @@
   border-color: rgba(239, 68, 68, 0.5);
   color: #fff;
 }
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-cart {
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
+.btn-cart:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35);
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+.btn-cart:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #4b5563;
+  box-shadow: none;
+}
+

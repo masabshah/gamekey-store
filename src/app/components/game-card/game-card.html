@@ -14,7 +14,10 @@
     <span *ngIf="game.available" class="status available">In Stock</span>
     <span *ngIf="!game.available" class="status out-of-stock">Out of Stock</span>
     
-    <!-- Trigger output event on click -->
-    <button (click)="onRemoveClick()" class="btn-remove">Remove</button>
+    <div class="footer-actions">
+      <button (click)="onAddToCartClick()" class="btn-cart" [disabled]="!game.available">Add to Cart</button>
+      <!-- Trigger output event on click -->
+      <button (click)="onRemoveClick()" class="btn-remove">Remove</button>
+    </div>
   </div>
 </div>
