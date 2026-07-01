@@ -1,21 +1,32 @@
 <div class="inventory-container">
-  <h2>🎮 Game Inventory Management</h2>
+  <div class="inventory-header">
+    <h2>🎮 Game Inventory Management</h2>
+    <p class="subtitle">View, search, or add product keys for your digital collection.</p>
+  </div>
 
-  <!-- Add Game Input Form Section -->
-  <div class="form-group">
-    <div class="input-wrapper">
-      <input type="text" [(ngModel)]="newGameTitle" placeholder="Enter game title" class="input-box" />
+  <!-- Add Game Quick Form Section -->
+  <div class="quick-add-panel">
+    <div class="panel-title">⚡ Quick Add License</div>
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input type="text" [(ngModel)]="newGameTitle" placeholder="Enter game title (e.g. Portal 3)" class="input-box" />
+      </div>
+      <div class="input-wrapper price-wrapper">
+        <div class="currency-symbol">$</div>
+        <input type="number" [(ngModel)]="newGamePrice" placeholder="Price" class="input-box price-box" />
+      </div>
+      <!-- (click) event binding calls the addGame() component class method -->
+      <button (click)="addGame()" class="btn-add">Add Game</button>
     </div>
-    <div class="input-wrapper price-wrapper">
-      <input type="number" [(ngModel)]="newGamePrice" placeholder="Price" class="input-box price-box" />
-    </div>
-    <!-- (click) event binding calls the addGame() component class method -->
-    <button (click)="addGame()" class="btn-add">Add Game</button>
   </div>
 
   <!-- Conditional rendering with @if. If games list is empty, show alert -->
   @if (games().length === 0) {
-    <p class="empty-msg">No games in inventory.</p>
+    <div class="empty-state">
+      <span class="empty-icon">📂</span>
+      <h3>No games in inventory</h3>
+      <p>Use the Quick Add bar or navigate to the Add Game page to populate the store inventory.</p>
+    </div>
   } @else {
     <div class="game-cards-container">
       <!-- Loop over games and render child cards -->
@@ -28,3 +39,4 @@
     </div>
   }
 </div>
+

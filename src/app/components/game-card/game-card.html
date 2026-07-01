@@ -1,23 +1,42 @@
 <div class="card" [class.out-of-stock-card]="!game.available">
-  <div class="card-header">
-    <h3>{{ game.title }}</h3>
-    <span class="price">${{ game.price | number:'1.2-2' }}</span>
+  <!-- Interactive Visual Gaming Banner -->
+  <div class="card-banner" [routerLink]="['/games', game.id]">
+    <span class="banner-icon">🎮</span>
+    <span class="banner-badge">LICENSE KEY</span>
   </div>
-  
-  <!-- Apply custom pipe to format key string -->
-  <div class="demo-key-box">
-    <span class="key-label">Demo Key:</span>
-    <code>{{ mockKey | keyFormat }}</code>
-  </div>
-  
-  <div class="card-footer">
-    <span *ngIf="game.available" class="status available">In Stock</span>
-    <span *ngIf="!game.available" class="status out-of-stock">Out of Stock</span>
+
+  <div class="card-body">
+    <div class="card-header">
+      <h3 [routerLink]="['/games', game.id]" class="card-title">{{ game.title }}</h3>
+      <span class="price">${{ game.price | number:'1.2-2' }}</span>
+    </div>
     
-    <div class="footer-actions">
-      <button (click)="onAddToCartClick()" class="btn-cart" [disabled]="!game.available">Add to Cart</button>
-      <!-- Trigger output event on click -->
-      <button (click)="onRemoveClick()" class="btn-remove">Remove</button>
+    <!-- Apply custom pipe to format key string and click-to-copy handler -->
+    <div class="demo-key-box" (click)="copyToClipboard($event)" title="Click to copy key">
+      <div class="key-header">
+        <span class="key-label">Demo Activation Key</span>
+        <span class="copy-status" [class.copied]="copied()">
+          {{ copied() ? '✓ Copied' : '📋 Copy' }}
+        </span>
+      </div>
+      <code>{{ mockKey | keyFormat }}</code>
+    </div>
+    
+    <div class="card-footer">
+      <div class="stock-status">
+        <span class="status-dot" [class.available]="game.available"></span>
+        <span class="status-text">{{ game.available ? 'In Stock' : 'Unavailable' }}</span>
+      </div>
+      
+      <div class="footer-actions">
+        <button (click)="onAddToCartClick(); $event.stopPropagation()" class="btn-cart" [disabled]="!game.available">
+          Add to Cart
+        </button>
+        <button (click)="onRemoveClick(); $event.stopPropagation()" class="btn-remove">
+          Remove
+        </button>
+      </div>
     </div>
   </div>
 </div>
+

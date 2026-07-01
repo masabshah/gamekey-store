@@ -1,13 +1,14 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Game } from '../../services/game';
 import { KeyFormatPipe } from '../../pipes/key-format.pipe'; // Import custom pipe
 import { CartService } from '../../services/cart.service'; // Import CartService
+import { RouterModule } from '@angular/router'; // For routerLink detail navigation
 
 @Component({
   selector: 'app-game-card',
   standalone: true,
-  imports: [CommonModule, KeyFormatPipe],
+  imports: [CommonModule, KeyFormatPipe, RouterModule],
   templateUrl: './game-card.html',
   styleUrl: './game-card.css'
 })
@@ -19,6 +20,9 @@ export class GameCardComponent {
   
   // Mock key code to show pipe demonstration
   mockKey: string = 'a3f9b21c4de79901cc84';
+  
+  // Signal to handle clipboard copy visualization state
+  copied = signal(false);
 
   // 2. @Output decorator registers a custom event name
   // EventEmitter defines the data payload type (number) emitted
@@ -32,5 +36,19 @@ export class GameCardComponent {
   onAddToCartClick(): void {
     this.cartService.addToCart(this.game);
   }
+
+  // Format and copy mockKey to clipboard
+  copyToClipboard(event: MouseEvent): void {
+    event.stopPropagation(); // Prevent card navigation trigger
+    const pipe = new KeyFormatPipe();
+    const formattedKey = pipe.transform(this.mockKey);
+    navigator.clipboard.writeText(formattedKey).then(() => {
+      this.copied.set(true);
+      setTimeout(() => {
+        this.copied.set(false);
+      }, 2000);
+    });
+  }
 }
+
 

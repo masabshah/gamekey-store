@@ -1,27 +1,44 @@
-<main class="min-h-screen bg-slate-950 flex flex-col p-6 text-slate-100">
+<main class="min-h-screen flex flex-col p-4 md:p-6 max-w-[1200px] mx-auto w-full animate-fade-in">
   <header>
-    <h1>🎮 GameKey Store</h1>
+    <div class="logo-area" routerLink="/games">
+      <span class="logo-icon">🎮</span>
+      <h1 class="logo-text">Game<span class="gradient-accent">Key Store</span></h1>
+    </div>
+    
     <nav>
-      <!-- routerLinkActive applies active-link CSS class if route matches URL -->
-      <a routerLink="/games" routerLinkActive="active-link">Catalog Inventory</a>
-      <a routerLink="/games/add" routerLinkActive="active-link">Add Game</a>
-      
-      <!-- Cart Summary Display -->
-      <div class="cart-summary">
-        🛒 Cart: <strong>{{ cartService.totalItems() }}</strong> items 
-        (Total: <strong>${{ cartService.totalPrice() | number:'1.2-2' }}</strong>)
+      <div class="nav-links">
+        <a routerLink="/games" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+          Catalog Inventory
+        </a>
+        <a routerLink="/games/add" routerLinkActive="active-link">
+          Add Game
+        </a>
       </div>
       
-      <!-- Login Simulation Buttons -->
-      <button *ngIf="!isLoggedIn()" (click)="simulateLogin()" class="sim-btn login-btn">
-        Login
-      </button>
-      <button *ngIf="isLoggedIn()" (click)="simulateLogout()" class="sim-btn logout-btn">
-        Logout
-      </button>
+      <div class="nav-divider"></div>
+      
+      <div class="nav-actions">
+        <!-- Cart Summary Display -->
+        <div class="cart-summary" [class.has-items]="cartService.totalItems() > 0">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-count">{{ cartService.totalItems() }}</span>
+          <span class="cart-price">${{ cartService.totalPrice() | number:'1.2-2' }}</span>
+        </div>
+        
+        <!-- Login Simulation Buttons -->
+        <button *ngIf="!isLoggedIn()" (click)="simulateLogin()" class="sim-btn login-btn">
+          Login
+        </button>
+        <button *ngIf="isLoggedIn()" (click)="simulateLogout()" class="sim-btn logout-btn">
+          Logout
+        </button>
+      </div>
     </nav>
   </header>
 
   <!-- router-outlet is the placeholder viewport for routed components -->
-  <router-outlet></router-outlet>
+  <div class="view-container">
+    <router-outlet></router-outlet>
+  </div>
 </main>
+

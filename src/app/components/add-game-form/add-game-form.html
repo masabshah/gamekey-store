@@ -1,24 +1,30 @@
-<div class="form-container">
-  <h2>➕ Add New Game to Store</h2>
+<div class="form-container animate-fade-in">
+  <div class="form-header">
+    <h2>➕ Add Game to Catalog</h2>
+    <p class="form-subtitle">Register a new activation license in the global digital database.</p>
+  </div>
 
   <!-- Bind form to the TS FormGroup structure -->
   <form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
     
     <!-- Title Input Field -->
     <div class="form-group">
-      <label for="title">Game Title</label>
-      <!-- formControlName maps input value changes to gameForm.get('title') -->
-      <input id="title" type="text" formControlName="title" placeholder="Enter title" class="form-control"
-             [ngClass]="{ 'is-invalid': title?.invalid && title?.touched }" />
+      <label for="title">Game Product Title</label>
+      <div class="input-container">
+        <span class="input-icon">🕹️</span>
+        <!-- formControlName maps input value changes to gameForm.get('title') -->
+        <input id="title" type="text" formControlName="title" placeholder="e.g. Portal 3" class="form-control"
+               [ngClass]="{ 'is-invalid': title?.invalid && title?.touched }" />
+      </div>
       
       <!-- Render validation errors only if the user has touched the field and it has errors -->
       @if (title?.invalid && title?.touched) {
         <div class="error-feedback">
           @if (title?.errors?.['required']) {
-            <small>Title is required.</small>
+            <small>⚠️ Product title is required.</small>
           }
           @if (title?.errors?.['titleLowercase']) {
-            <small>Game title must start with a capitalized letter.</small>
+            <small>⚠️ Game title must start with a capitalized letter.</small>
           }
         </div>
       }
@@ -26,27 +32,31 @@
 
     <!-- Price Input Field -->
     <div class="form-group">
-      <label for="price">Price ($)</label>
-      <input id="price" type="number" formControlName="price" placeholder="Enter price" class="form-control"
-             [ngClass]="{ 'is-invalid': price?.invalid && price?.touched }" />
+      <label for="price">Retail Activation Price ($)</label>
+      <div class="input-container">
+        <span class="input-icon">$</span>
+        <input id="price" type="number" formControlName="price" placeholder="29.99" class="form-control price-control"
+               [ngClass]="{ 'is-invalid': price?.invalid && price?.touched }" />
+      </div>
       
       @if (price?.invalid && price?.touched) {
         <div class="error-feedback">
           @if (price?.errors?.['required']) {
-            <small>Price is required.</small>
+            <small>⚠️ Price amount is required.</small>
           }
           @if (price?.errors?.['min']) {
-            <small>Price must be at least $1.00.</small>
+            <small>⚠️ Price must be at least $1.00.</small>
           }
         </div>
       }
     </div>
 
     <!-- Actions -->
-    <div class="actions">
-      <button type="submit" class="btn-submit">Add Game</button>
+    <div class="form-actions">
+      <button type="submit" class="btn-submit" [disabled]="gameForm.invalid">Register Game</button>
       <a routerLink="/games" class="btn-cancel">Cancel</a>
     </div>
 
   </form>
 </div>
+

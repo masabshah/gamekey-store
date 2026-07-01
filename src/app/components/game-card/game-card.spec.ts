@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameCardComponent } from './game-card';
 import { Game } from '../../services/game';
 import { CartService } from '../../services/cart.service';
+import { provideRouter } from '@angular/router';
 
 describe('GameCardComponent', () => {
   let component: GameCardComponent;
@@ -22,7 +23,8 @@ describe('GameCardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [GameCardComponent],
       providers: [
-        { provide: CartService, useValue: mockCartService }
+        { provide: CartService, useValue: mockCartService },
+        provideRouter([])
       ]
     }).compileComponents();
 

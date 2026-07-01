@@ -1,8 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
+:root {
+  --primary-glow: radial-gradient(rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.05), transparent 70%);
+  --secondary-glow: radial-gradient(rgba(16, 185, 129, 0.1), transparent 60%);
+}
+
 body {
   font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
   margin: 0;
-  background-color: #020617; /* bg-slate-950 */
+  background-color: #05050f; /* Deep cosmic dark space */
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(167, 139, 250, 0.08) 0%, transparent 45%);
+  background-attachment: fixed;
+  color: #f3f4f6;
+  overflow-x: hidden;
 }
+
+/* Custom Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05050f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  border: 2px solid #05050f;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.4);
+}
+
+/* Global fade-in animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
